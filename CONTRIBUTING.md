@@ -21,7 +21,7 @@ $ mypy
 $ pytest --cov=chronocatalog
 ```
 
-All four must pass; coverage is gated at 85%.
+All four must pass; coverage is gated at 90%.
 
 ## Expectations
 
