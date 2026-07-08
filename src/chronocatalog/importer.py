@@ -23,7 +23,12 @@ from pathlib import Path
 
 from chronocatalog.apply import apply_plan, validate_plan
 from chronocatalog.config import LOOSE_MASTER_EXTENSIONS, Config, Tree
-from chronocatalog.dates import ResolvedDate, chain_tags, resolve_date
+from chronocatalog.dates import (
+    ResolvedDate,
+    augment_with_name_timestamps,
+    chain_tags,
+    resolve_date,
+)
 from chronocatalog.digests import naming_digests
 from chronocatalog.exiftool import ExifTool
 from chronocatalog.family import OriginalGroup, group_originals
@@ -86,6 +91,7 @@ def build_plan(config: Config, root: Path, card: Path, workers: int | None = Non
     tags = sorted(chain_tags(config.date_chain_photo + config.date_chain_video))
     with ExifTool() as tool:
         metadata = tool.read_metadata(master_paths, tags) if master_paths else {}
+        augment_with_name_timestamps(metadata, master_paths)
         naming, naming_errors = naming_digests(master_paths, config.pattern, tool, workers=workers)
     digests, hash_errors = hash_files(files, [plan.algorithm], workers=workers)
 

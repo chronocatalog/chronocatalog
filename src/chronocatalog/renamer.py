@@ -26,7 +26,12 @@ from pathlib import Path
 
 from chronocatalog.apply import apply_plan, validate_plan
 from chronocatalog.config import Config, Tree
-from chronocatalog.dates import ResolvedDate, chain_tags, resolve_date
+from chronocatalog.dates import (
+    ResolvedDate,
+    augment_with_name_timestamps,
+    chain_tags,
+    resolve_date,
+)
 from chronocatalog.digests import naming_digests
 from chronocatalog.exiftool import ExifTool
 from chronocatalog.family import Family, group_by_prefix
@@ -136,6 +141,7 @@ def _plan_tree(
     tags = sorted(chain_tags(chain))
     paths = sorted(master.path for master in masters.values())
     metadata = tool.read_metadata(paths, tags) if paths else {}
+    augment_with_name_timestamps(metadata, paths)
     digests, digest_errors = naming_digests(
         paths,
         config.pattern,
