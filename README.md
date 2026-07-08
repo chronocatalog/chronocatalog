@@ -1,8 +1,11 @@
-# `chronocatalog`
+# ChronoCatalog
 
 [![CI](https://github.com/chronocatalog/chronocatalog/actions/workflows/ci.yml/badge.svg)](https://github.com/chronocatalog/chronocatalog/actions/workflows/ci.yml)
 
 Deterministic, verifiable naming for photo and video archives.
+
+The name is ChronoCatalog in prose; the command, package, and all
+identifiers are `chronocatalog`, and it is never two words.
 
 `chronocatalog` names every file in an archive after what it is and when it
 happened:
